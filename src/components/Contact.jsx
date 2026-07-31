@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { revealItem, revealViewport, staggerContainer } from '../lib/motion'
 import SectionTitle from './SectionTitle'
 
 export default function Contact() {
@@ -12,7 +13,8 @@ export default function Contact() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
+    const form = event.currentTarget
+    const formData = new FormData(form)
     const name = formData.get('name')?.toString().trim() ?? ''
     const email = formData.get('email')?.toString().trim() ?? ''
     const userMessage = formData.get('message')?.toString().trim() ?? ''
@@ -22,7 +24,7 @@ export default function Contact() {
 
     if (!formEndpoint) {
       window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`
-      event.currentTarget.reset()
+      form.reset()
       setStatus('success')
       setMessage('Opened your email app with a prefilled draft.')
       return
@@ -44,13 +46,13 @@ export default function Contact() {
         throw new Error('Network response was not ok')
       }
 
-      event.currentTarget.reset()
+      form.reset()
       setStatus('success')
       setMessage('Thanks, your message has been sent successfully.')
-    } catch (error) {
+    } catch {
       window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`
-      event.currentTarget.reset()
-      setStatus('success')
+      form.reset()
+      setStatus('error')
       setMessage('Could not reach the form service, so your email app was opened instead.')
     }
   }
@@ -64,14 +66,17 @@ export default function Contact() {
           subtitle="Reach out for collaboration, internship opportunities, or technology-focused conversations."
         />
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+        <motion.div
+          className="grid gap-6 lg:grid-cols-[1fr_0.9fr]"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={revealViewport}
+        >
           <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.5 }}
             className="glass-card"
             onSubmit={handleSubmit}
+            variants={revealItem}
           >
             <label className="form-label" htmlFor="name">
               Name
@@ -99,7 +104,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="mt-5 rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950"
+              className="mt-5 rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-0"
             >
               {status === 'submitting' ? 'Sending...' : 'Send Message'}
             </button>
@@ -119,11 +124,8 @@ export default function Contact() {
           </motion.form>
 
           <motion.aside
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.5, delay: 0.08 }}
             className="glass-card"
+            variants={revealItem}
           >
             <h3 className="font-heading text-2xl text-slate-900 dark:text-white">Connect</h3>
             <p className="mt-3 text-sm text-slate-700 dark:text-slate-300">Prefer direct channels? You can find me here.</p>
@@ -150,7 +152,7 @@ export default function Contact() {
               </a>
             </div>
           </motion.aside>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

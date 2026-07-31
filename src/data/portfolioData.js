@@ -14,7 +14,7 @@ export const projectItems = [
       'Network management and monitoring system analyzing traffic patterns and security anomalies for login page access.',
     stack: ['Network Analysis', 'Logging', 'Linux', 'Security'],
     github: 'https://github.com/Aikozzzz/network-management-and-monitoring',
-    live: 'https://github.com/Aikozzzz/network-management-and-monitoring',
+    live: '',
   },
   {
     title: 'Exam Cheating Detection',
@@ -22,7 +22,7 @@ export const projectItems = [
       'Machine learning system using Hadoop to detect online exam cheating patterns and irregular behavior in distributed environments.',
     stack: ['Hadoop', 'Machine Learning', 'Python', 'Big Data'],
     github: 'https://github.com/Aikozzzz/exam',
-    live: 'https://github.com/Aikozzzz/exam',
+    live: '',
   },
   {
     title: 'ER-IR Team Page',
@@ -38,7 +38,7 @@ export const projectItems = [
       'Interactive flashcard application for studying Japanese kanji characters, supporting vocabulary building and N2 exam preparation.',
     stack: ['React', 'JavaScript', 'LocalStorage'],
     github: 'https://github.com/Aikozzzz/studymorekanji',
-    live: 'https://github.com/Aikozzzz/studymorekanji',
+    live: '',
   },
 ]
 
@@ -46,34 +46,34 @@ export const aboutSkills = [
   {
     category: 'DevOps',
     items: ['Linux System Administration', 'Cloud Foundations', 'CI/CD', 'DevOps'],
-    progress: 82,
   },
   {
     category: 'Cybersecurity',
-    items: ['Junior Cybersecurity Analyst', 'CCNA Networking', 'Secure System Basics'],
-    progress: 70,
+    items: ['Cybersecurity Fundamentals', 'CCNA Networking', 'Secure System Basics'],
   },
   {
     category: 'Programming',
     items: ['Python', 'Java', 'C++', 'JavaScript', 'React'],
-    progress: 78,
   },
 ]
 
 export const toolSkills = [
-  { name: 'Linux', level: 85 },
-  { name: 'Distributed Systems', level: 74 },
-  { name: 'Cloud Fundamentals', level: 80 },
-  { name: 'Docker', level: 78 },
-  { name: 'DevOps', level: 80 },
-  { name: 'Python', level: 79 },
-  { name: 'Java', level: 55 },
-  { name: 'C++', level: 52 },
-  { name: 'Linux Administration', level: 82 },
-  { name: 'Research Skills', level: 84 },
-  { name: 'Communication', level: 83 },
-  { name: 'Teamwork', level: 86 },
-  { name: 'Leadership', level: 76 },
+  {
+    category: 'Cloud & DevOps',
+    items: ['Linux Administration', 'Docker', 'CI/CD', 'Cloud Fundamentals'],
+  },
+  {
+    category: 'HPC & Distributed Systems',
+    items: ['Distributed Systems', 'Hadoop', 'Linux', 'Network Analysis'],
+  },
+  {
+    category: 'Languages & Frontend',
+    items: ['Python', 'Java', 'C++', 'JavaScript', 'React', 'Tailwind CSS'],
+  },
+  {
+    category: 'Engineering Practice',
+    items: ['Research', 'Communication', 'Teamwork', 'Leadership'],
+  },
 ]
 
 export const milestones = [

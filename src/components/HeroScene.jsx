@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useReducedMotion } from 'framer-motion'
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 function OrbitingShapes() {
@@ -10,11 +10,16 @@ function OrbitingShapes() {
   const positions = useMemo(() => {
     const count = 260
     const data = new Float32Array(count * 3)
+    let seed = 4729
+    const random = () => {
+      seed = (seed * 1664525 + 1013904223) % 4294967296
+      return seed / 4294967296
+    }
 
     for (let index = 0; index < count; index += 1) {
-      const radius = 1.2 + Math.random() * 1.8
-      const angle = Math.random() * Math.PI * 2
-      const y = (Math.random() - 0.5) * 2.6
+      const radius = 1.2 + random() * 1.8
+      const angle = random() * Math.PI * 2
+      const y = (random() - 0.5) * 2.6
 
       data[index * 3] = Math.cos(angle) * radius
       data[index * 3 + 1] = y
@@ -61,15 +66,45 @@ function OrbitingShapes() {
 
 export default function HeroScene() {
   const reduceMotion = useReducedMotion()
+  const containerRef = useRef(null)
+  const [isActive, setIsActive] = useState(() => document.visibilityState === 'visible')
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) {
+      return undefined
+    }
+
+    let isVisible = document.visibilityState === 'visible'
+    let isIntersecting = true
+    const updateActivity = () => setIsActive(isVisible && isIntersecting)
+    const observer = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry.isIntersecting
+      updateActivity()
+    })
+    const handleVisibilityChange = () => {
+      isVisible = document.visibilityState === 'visible'
+      updateActivity()
+    }
+
+    observer.observe(container)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
 
   if (reduceMotion) {
     return null
   }
 
   return (
-    <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
+    <div ref={containerRef} className="pointer-events-none absolute inset-0" aria-hidden="true">
       <Canvas
         dpr={[1, 1.5]}
+        frameloop={isActive ? 'always' : 'never'}
         camera={{ position: [0, 0, 4.8], fov: 48 }}
         gl={{ antialias: false, powerPreference: 'low-power' }}
       >

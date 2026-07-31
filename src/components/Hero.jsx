@@ -1,65 +1,76 @@
-import { lazy, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { lazy, Suspense, useRef } from 'react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useTypingText } from '../hooks/useTypingText'
+import { duration, easing, heroContainer, revealItem } from '../lib/motion'
 import profileImage from '../assets/image.png'
 
 const HeroScene = lazy(() => import('./HeroScene'))
+const focusAreas = ['Linux & Distributed Systems', 'Cloud & DevOps', 'Scalable Infrastructure']
 
 export default function Hero({ onProjectsClick, onContactClick }) {
-  const dynamicText = useTypingText(['Linux & Distributed Systems', 'Cloud & DevOps', 'Scalable Infrastructure'])
+  const heroRef = useRef(null)
+  const isHeroInView = useInView(heroRef, { amount: 0.1, initial: true })
+  const dynamicText = useTypingText(focusAreas, 85, 45, 1200, isHeroInView)
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+  const reduceMotion = useReducedMotion()
 
   return (
-    <section id="hero" className="relative flex min-h-[84svh] items-center px-4 pb-8 pt-16 sm:px-8 sm:pb-10 sm:pt-20 lg:min-h-[90svh]">
+    <section ref={heroRef} id="hero" className="relative flex min-h-[84svh] items-center px-4 pb-8 pt-16 sm:px-8 sm:pb-10 sm:pt-20 lg:min-h-[90svh]">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-8 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
         >
-          <p className="text-xs uppercase tracking-[0.35em] text-sky-700 dark:text-sky-300/90">Personal Portfolio</p>
-          <h1 className="mt-4 font-heading text-3xl font-semibold leading-tight text-slate-900 dark:text-white sm:mt-5 sm:text-5xl lg:text-6xl">
+          <motion.p variants={revealItem} className="text-xs uppercase tracking-[0.35em] text-sky-700 dark:text-sky-300/90">
+            Personal Portfolio
+          </motion.p>
+          <motion.h1 variants={revealItem} className="mt-4 font-heading text-3xl font-semibold leading-tight text-slate-900 dark:text-white sm:mt-5 sm:text-5xl lg:text-6xl">
             Kyaw Zin Hein
-          </h1>
-          <p className="mt-3 text-base text-sky-700 dark:text-sky-200 sm:mt-4 sm:text-lg">
+          </motion.h1>
+          <motion.p variants={revealItem} className="mt-3 text-base text-sky-700 dark:text-sky-200 sm:mt-4 sm:text-lg">
             Linux | Distributed Systems | Cloud | DevOps | Infrastructure Engineer
-          </p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-700 dark:text-slate-300 sm:mt-5 sm:text-base">
+          </motion.p>
+          <motion.p variants={revealItem} className="mt-4 max-w-xl text-sm leading-relaxed text-slate-700 dark:text-slate-300 sm:mt-5 sm:text-base">
             IT student at University of Information Technology (UIT), Yangon, majoring in High Performance Computing
             (HPC). I am passionate about building scalable and efficient systems through hands-on projects.
-          </p>
+          </motion.p>
 
-          <p className="mt-5 text-sm text-violet-700 dark:text-violet-300 sm:text-base">
+          <motion.p variants={revealItem} className="mt-5 text-sm text-violet-700 dark:text-violet-300 sm:text-base">
             Focus now: <span className="font-medium text-violet-600 dark:text-violet-200">{dynamicText}</span>
             <span className="typing-caret" aria-hidden="true" />
-          </p>
+          </motion.p>
 
-          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
+          <motion.div variants={revealItem} className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
             <button
               type="button"
               onClick={onProjectsClick}
-              className="w-full rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/25 transition hover:scale-[1.02] sm:w-auto"
+              className="w-full rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/25 transition duration-200 hover:-translate-y-0.5 hover:shadow-sky-500/35 active:translate-y-0 sm:w-auto"
             >
               View Projects
             </button>
             <button
               type="button"
               onClick={onContactClick}
-              className="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 backdrop-blur transition hover:bg-slate-100 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 sm:w-auto"
+              className="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 backdrop-blur transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 active:translate-y-0 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 sm:w-auto"
             >
               Contact Me
             </button>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 34 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.1 }}
+          transition={{ duration: duration.reveal, delay: duration.fast, ease: easing.enter }}
           className="hero-card relative flex flex-col"
         >
-          <Suspense fallback={null}>
-            <HeroScene />
-          </Suspense>
+          {isLargeScreen && !reduceMotion ? (
+            <Suspense fallback={null}>
+              <HeroScene />
+            </Suspense>
+          ) : null}
           <div className="hero-grid" aria-hidden="true" />
           
           <div className="relative z-10 flex flex-col items-center">
@@ -72,7 +83,7 @@ export default function Hero({ onProjectsClick, onContactClick }) {
             </div>
 
             <p className="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">Status</p>
-            <h3 className="mt-3 font-heading text-xl sm:text-2xl text-slate-900 dark:text-white text-center">Open To Internship & Collaboration</h3>
+            <h2 className="mt-3 text-center font-heading text-xl text-slate-900 dark:text-white sm:text-2xl">Open To Internship & Collaboration</h2>
             <p className="mt-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300 text-center">
               Open to hybrid or remote internships and collaboration opportunities in cloud, DevOps, systems, and
               infrastructure engineering.

@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import About from './components/About'
 import BackgroundEffects from './components/BackgroundEffects'
@@ -6,7 +5,6 @@ import Contact from './components/Contact'
 import CursorGlow from './components/CursorGlow'
 import Hero from './components/Hero'
 import Journey from './components/Journey'
-import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
@@ -20,7 +18,6 @@ import {
 import { useActiveSection } from './hooks/useActiveSection'
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-theme')
     if (savedTheme) {
@@ -31,11 +28,6 @@ function App() {
 
   const sectionIds = useMemo(() => navSections.map((section) => section.id), [])
   const activeSection = useActiveSection(sectionIds)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsLoading(false), 1200)
-    return () => clearTimeout(timeout)
-  }, [])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -64,15 +56,17 @@ function App() {
   }, [])
 
   const handleNavigate = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
   }
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <BackgroundEffects />
       <CursorGlow />
-
-      <AnimatePresence>{isLoading ? <LoadingScreen /> : null}</AnimatePresence>
 
       <div className="relative z-10">
         <Navbar
@@ -83,7 +77,7 @@ function App() {
           onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
         />
 
-        <main>
+        <main id="main-content" tabIndex="-1">
           <Hero onProjectsClick={() => handleNavigate('projects')} onContactClick={() => handleNavigate('contact')} />
           <About skillGroups={aboutSkills} />
           <Projects projects={projectItems} />

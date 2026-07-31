@@ -30,6 +30,27 @@ html:not(.dark) body {
   min-height: 100vh;
 }
 
+section {
+  scroll-margin-top: 6rem;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 0.75rem;
+  background: #0f172a;
+  padding: 0.75rem 1rem;
+  color: #f8fafc;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 @layer components {
   .glass-card {
     @apply rounded-2xl border border-white/15 bg-slate-900/55 p-4 shadow-xl shadow-slate-950/35 backdrop-blur-xl sm:p-6;
@@ -137,5 +158,25 @@ html:not(.dark) .particle-layer {
 
   100% {
     transform: translateY(-26px);
+  }
+}
+
+:where(a, button, input, textarea):focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .typing-caret {
+    display: none;
   }
 }

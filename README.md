@@ -1,66 +1,32 @@
-# Kyaw Zin Hein Portfolio
+# Modern Portfolio Development Pack
 
-Modern portfolio built with React + Vite, Tailwind CSS, Framer Motion, and subtle Three.js effects.
+This pack extends the current React and Vite portfolio plan with a public-facing design specification, coordinated subagents, and reusable implementation skills.
 
-## Tech Stack
+## Contents
 
-- React + Vite
-- Tailwind CSS
-- Framer Motion
-- React Three Fiber + Three.js
+- `DESIGN.md` — complete product, visual, motion, accessibility, performance, SEO, and release specification
+- `AGENTS.md` — orchestration rules and shared quality gate
+- `subagents/` — focused agent roles for design, frontend, motion, Three.js, content, quality, and review
+- `skills/` — repeatable workflows for common portfolio-development tasks
 
-## Setup
+## Recommended Placement
 
-1. Install dependencies:
+Copy these files into the portfolio repository:
 
-```bash
-npm install
+```text
+portfolio/
+├── DESIGN.md
+├── AGENTS.md
+├── subagents/
+└── skills/
 ```
 
-2. Configure environment variables:
+An agentic coding tool can read `AGENTS.md`, then delegate work using the files in `subagents/` and execute the procedures in `skills/`.
 
-```bash
-cp .env.example .env
+## First Implementation Task
+
+Start with this instruction:
+
+```text
+Read README.md, DESIGN.md, and AGENTS.md. Audit the current portfolio against DESIGN.md. Implement Phase 1 only: design tokens, semantic layout, responsive navigation, hero, project data structure, and static project cards. Preserve the current contact behavior. Do not add new dependencies unless necessary. Run lint and build, then report changed files, validation results, and remaining work.
 ```
-
-Set your Formspree endpoint in `.env`:
-
-```env
-VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
-```
-
-3. Start development server:
-
-```bash
-npm run dev
-```
-
-4. Build production bundle:
-
-```bash
-npm run build
-```
-
-## Contact Form (Working Email Service)
-
-The contact form sends submissions to Formspree using `fetch`.
-
-- Create a form at Formspree
-- Copy your endpoint URL
-- Add it to `VITE_FORMSPREE_ENDPOINT` in `.env`
-
-Fallback behavior:
-
-- If `VITE_FORMSPREE_ENDPOINT` is missing, the form still works by opening a prefilled `mailto:` draft.
-- If Formspree request fails, it automatically falls back to `mailto:`.
-
-## Performance Notes
-
-- Three.js scene is hidden on smaller screens (`lg` and below)
-- Canvas DPR is capped (`[1, 1.5]`)
-- Antialias is disabled for lower GPU cost
-- Respects reduced-motion preferences by disabling the 3D scene
-
-## Deploy
-
-This project is deploy-ready for Vercel or Netlify.

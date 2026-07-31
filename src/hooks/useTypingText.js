@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
 
-export function useTypingText(words, typingSpeed = 85, deletingSpeed = 45, pause = 1200) {
+export function useTypingText(words, typingSpeed = 85, deletingSpeed = 45, pause = 1200, isActive = true) {
+  const reduceMotion = useReducedMotion()
   const [wordIndex, setWordIndex] = useState(0)
   const [text, setText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
-    if (!words.length) {
+    if (!words.length || reduceMotion || !isActive) {
       return undefined
     }
 
@@ -14,14 +16,17 @@ export function useTypingText(words, typingSpeed = 85, deletingSpeed = 45, pause
     const isWordComplete = text === currentWord
     const isWordDeleted = text === ''
 
-    let timeoutDelay = isDeleting ? deletingSpeed : typingSpeed
-
     if (!isDeleting && isWordComplete) {
-      timeoutDelay = pause
-      setIsDeleting(true)
-    } else if (isDeleting && isWordDeleted) {
-      setIsDeleting(false)
-      setWordIndex((prev) => prev + 1)
+      const timeout = setTimeout(() => setIsDeleting(true), pause)
+      return () => clearTimeout(timeout)
+    }
+
+    if (isDeleting && isWordDeleted) {
+      const timeout = setTimeout(() => {
+        setIsDeleting(false)
+        setWordIndex((prev) => prev + 1)
+      }, deletingSpeed)
+      return () => clearTimeout(timeout)
     }
 
     const timeout = setTimeout(() => {
@@ -31,10 +36,10 @@ export function useTypingText(words, typingSpeed = 85, deletingSpeed = 45, pause
         }
         return currentWord.slice(0, prev.length + 1)
       })
-    }, timeoutDelay)
+    }, isDeleting ? deletingSpeed : typingSpeed)
 
     return () => clearTimeout(timeout)
-  }, [words, wordIndex, text, isDeleting, typingSpeed, deletingSpeed, pause])
+  }, [words, wordIndex, text, isDeleting, typingSpeed, deletingSpeed, pause, reduceMotion, isActive])
 
-  return text
+  return reduceMotion ? (words[0] ?? '') : text
 }
