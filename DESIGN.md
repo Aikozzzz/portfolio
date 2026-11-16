@@ -9,7 +9,7 @@
 
 The website should present Kyaw Zin Hein as a capable early-career software, cloud, DevOps, and high-performance computing engineer. It should feel modern, technically confident, and memorable without becoming difficult to read or slow to load.
 
-The design direction is **“Midnight Aurora”**: a dark, clean interface with restrained glass effects, luminous gradients, smooth motion, and lightweight 3D details.
+The design uses charcoal and near-black surfaces, warm red-orange accents, and a portrait-led hero. Lynn Htet Thant’s portfolio informs the oversized typography and red details. Kaung Htike San’s portfolio informs the split hero and charcoal background.
 
 ---
 
@@ -96,44 +96,35 @@ Keep the primary navigation short. Secondary details belong inside sections, not
 
 ### 5.1 Theme
 
-Use a dark-first visual system with optional light mode only after the dark version is complete.
+Default to charcoal with warm red-orange accents. The light theme uses warm off-white surfaces and preserves the visitor’s saved preference.
+
+Design references: [Lynn Htet Thant](https://lynnhtet-drab.vercel.app/) and [Kaung Htike San](https://kaunghtikesan.vercel.app/).
 
 ### 5.2 Color tokens
 
-```css
-:root {
-  --color-bg: #070A12;
-  --color-surface: #0D1220;
-  --color-surface-raised: #121A2B;
-  --color-border: rgba(255, 255, 255, 0.10);
-  --color-text: #F4F7FB;
-  --color-text-muted: #9AA6BC;
-  --color-cyan: #42E8E0;
-  --color-blue: #5B8CFF;
-  --color-violet: #A56CFF;
-  --color-success: #47D18C;
-  --color-warning: #F2C66D;
-  --color-danger: #FF6B7A;
-}
-```
+| Role | Dark theme |
+|---|---|
+| Page | `#191919` |
+| Recessed surface | `#141414` |
+| Surface | `#20201F` |
+| Text | `#F2F2F2` |
+| Secondary text | `#B9B2AD` |
+| Accent text | `#FF8B63` |
+| Action fill | `#ED5429` |
+| Reference red | `#E50914` |
+| Reference orange | `#DF3D00` |
 
-### 5.3 Gradient tokens
+The brighter action fill and accent text support contrast on buttons and links. The red appears in the wordmark, and orange tints the contact panel.
 
-```css
---gradient-brand: linear-gradient(135deg, #42E8E0 0%, #5B8CFF 48%, #A56CFF 100%);
---gradient-glow: radial-gradient(circle, rgba(91, 140, 255, 0.22), transparent 65%);
---gradient-card: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025));
-```
+### 5.3 Image treatment
 
-Use the brand gradient for small emphasis areas, not as a full-page background.
+Use the supplied headshot in a warm frame that preserves the full photo. Use project-specific diagrams and illustrations in Selected Work. Keep glow and motion inside visual elements so reading surfaces stay quiet.
 
 ### 5.4 Typography
 
-Recommended pairing:
-
-- **Display and headings:** Space Grotesk, Sora, or Manrope
-- **Body:** Inter or Geist Sans
-- **Code and metadata:** JetBrains Mono
+- **Display and headings:** Barlow Condensed
+- **Body:** DM Sans
+- **Metadata:** IBM Plex Mono
 
 Typography scale:
 
@@ -174,8 +165,7 @@ Use tight line-height for headings and comfortable line-height for body text.
 
 Desktop behavior:
 
-- Transparent at the top
-- Becomes a blurred, bordered floating bar after scrolling
+- Sticky, full-width header with a subtle border and translucent background
 - Active section indicator follows scroll position
 - Includes résumé button and theme control only if they fit cleanly
 
@@ -491,7 +481,7 @@ src/
 └── assets/
 ```
 
-Keep portfolio content in data files rather than hard-coding it across components.
+Shared profile details, project entries, skills, experience, and credentials live in `src/data/portfolioData.js`. Theme and layout tokens live in `src/index.css`.
 
 ---
 

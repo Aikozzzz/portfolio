@@ -1,158 +1,105 @@
-import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa'
-import { revealItem, revealViewport, staggerContainer } from '../lib/motion'
+import { FiArrowRight, FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { profile } from '../data/portfolioData'
 import SectionTitle from './SectionTitle'
+
+const formEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT
 
 export default function Contact() {
   const [status, setStatus] = useState('idle')
-  const [message, setMessage] = useState('')
+  const [draftUrl, setDraftUrl] = useState('')
 
-  const formEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT
-  const contactEmail = 'kyaw24295968@gmail.com'
-
-  const handleSubmit = async (event) => {
+  async function handleSubmit(event) {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
-    const name = formData.get('name')?.toString().trim() ?? ''
-    const email = formData.get('email')?.toString().trim() ?? ''
-    const userMessage = formData.get('message')?.toString().trim() ?? ''
+    const name = formData.get('name').trim()
+    const email = formData.get('email').trim()
+    const message = formData.get('message').trim()
 
-    const subject = encodeURIComponent(`Portfolio Contact from ${name || 'Website Visitor'}`)
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${userMessage}`)
+    if (!name || !message) {
+      setStatus('invalid')
+      form.elements.namedItem(!name ? 'name' : 'message').focus()
+      return
+    }
+
+    const subject = encodeURIComponent(`Portfolio message from ${name}`)
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
+    const mailto = `mailto:${profile.email}?subject=${subject}&body=${body}`
 
     if (!formEndpoint) {
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`
-      form.reset()
-      setStatus('success')
-      setMessage('Opened your email app with a prefilled draft.')
+      setStatus('draft')
+      setDraftUrl(mailto)
+      window.location.href = mailto
       return
     }
 
     setStatus('submitting')
-    setMessage('Sending your message...')
+    setDraftUrl('')
 
     try {
+      formData.set('name', name)
+      formData.set('email', email)
+      formData.set('message', message)
       const response = await fetch(formEndpoint, {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-        },
+        headers: { Accept: 'application/json' },
         body: formData,
       })
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
+      if (!response.ok) throw new Error('Contact form submission failed')
 
       form.reset()
       setStatus('success')
-      setMessage('Thanks, your message has been sent successfully.')
     } catch {
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`
-      form.reset()
+      setDraftUrl(mailto)
       setStatus('error')
-      setMessage('Could not reach the form service, so your email app was opened instead.')
     }
   }
 
+  const statusMessages = {
+    invalid: 'Enter a name and a message.',
+    draft: 'Finish sending your draft in your email app.',
+    success: 'Message sent. Thanks for getting in touch.',
+    error: 'Your message could not be sent. You can retry or open an email draft.',
+  }
+
   return (
-    <section id="contact" className="px-4 pb-8 pt-8 sm:px-8 sm:pb-10 sm:pt-10">
-      <div className="mx-auto max-w-6xl">
-        <SectionTitle
-          eyebrow="Contact"
-          title="Let Us Build Something Great"
-          subtitle="Reach out for collaboration, internship opportunities, or technology-focused conversations."
-        />
-
-        <motion.div
-          className="grid gap-6 lg:grid-cols-[1fr_0.9fr]"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={revealViewport}
-        >
-          <motion.form
-            className="glass-card"
-            onSubmit={handleSubmit}
-            variants={revealItem}
-          >
-            <label className="form-label" htmlFor="name">
+    <section className="shell section contact-section" id="contact" aria-labelledby="contact-title" tabIndex={-1}>
+      <div className="contact-panel">
+        <div className="contact-copy">
+          <SectionTitle id="contact-title" title="Let’s get in touch." />
+          <p>I’m open to internships in software and infrastructure, and to collaborating on projects.</p>
+          <a className="text-link email-link" href={`mailto:${profile.email}`}>
+            <FiMail aria-hidden="true" /> {profile.email} <FiArrowUpRight aria-hidden="true" />
+          </a>
+          <div className="hero-socials">
+            <a className="text-link" href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" /> GitHub</a>
+            <a className="text-link" href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" /> LinkedIn</a>
+          </div>
+        </div>
+        <form className="contact-form" onSubmit={handleSubmit} aria-busy={status === 'submitting'}>
+          <div className="form-pair">
+            <label>
               Name
+              <input name="name" autoComplete="name" required />
             </label>
-            <input id="name" name="name" className="form-input" type="text" placeholder="Your name" required />
-
-            <label className="form-label mt-4" htmlFor="email">
+            <label>
               Email
+              <input name="email" type="email" autoComplete="email" required />
             </label>
-            <input id="email" name="email" className="form-input" type="email" placeholder="you@example.com" required />
-
-            <label className="form-label mt-4" htmlFor="message">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              className="form-input min-h-36"
-              placeholder="Tell me about your project or opportunity"
-              required
-            />
-
-            <input type="hidden" name="_subject" value="New portfolio contact message" />
-
-            <button
-              type="submit"
-              disabled={status === 'submitting'}
-              className="mt-5 rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-0"
-            >
-              {status === 'submitting' ? 'Sending...' : 'Send Message'}
-            </button>
-
-            <p
-              className={`mt-4 text-sm ${
-                status === 'success'
-                  ? 'text-emerald-600 dark:text-emerald-300'
-                  : status === 'error'
-                    ? 'text-rose-600 dark:text-rose-300'
-                    : 'text-slate-600 dark:text-slate-300'
-              }`}
-              role="status"
-            >
-              {message}
-            </p>
-          </motion.form>
-
-          <motion.aside
-            className="glass-card"
-            variants={revealItem}
-          >
-            <h3 className="font-heading text-2xl text-slate-900 dark:text-white">Connect</h3>
-            <p className="mt-3 text-sm text-slate-700 dark:text-slate-300">Prefer direct channels? You can find me here.</p>
-
-            <div className="mt-6 space-y-4 text-sm">
-              <a
-                href="https://github.com/Aikozzzz"
-                target="_blank"
-                rel="noreferrer"
-                className="social-link"
-              >
-                <FaGithub /> GitHub
-              </a>
-              <a
-                href="https://linkedin.com/in/kyaw-zin-hein-a21abb37b"
-                target="_blank"
-                rel="noreferrer"
-                className="social-link"
-              >
-                <FaLinkedin /> LinkedIn
-              </a>
-              <a href="mailto:kyaw24295968@gmail.com" className="social-link">
-                <FaEnvelope /> kyaw24295968@gmail.com
-              </a>
-            </div>
-          </motion.aside>
-        </motion.div>
+          </div>
+          <label>
+            Message
+            <textarea name="message" rows="4" required />
+          </label>
+          <button type="submit" className="button button-primary" disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'Sending…' : formEndpoint ? 'Send message' : 'Open email draft'}
+            <FiArrowRight aria-hidden="true" />
+          </button>
+          <p className="form-status" role="status">{statusMessages[status]}</p>
+          {draftUrl && <a className="text-link" href={draftUrl}>Open draft in email <FiArrowUpRight aria-hidden="true" /></a>}
+        </form>
       </div>
     </section>
   )

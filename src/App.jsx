@@ -1,95 +1,47 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { FiArrowUp } from 'react-icons/fi'
 import About from './components/About'
-import BackgroundEffects from './components/BackgroundEffects'
 import Contact from './components/Contact'
-import CursorGlow from './components/CursorGlow'
 import Hero from './components/Hero'
 import Journey from './components/Journey'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
-import {
-  aboutSkills,
-  milestones,
-  navSections,
-  projectItems,
-  toolSkills,
-} from './data/portfolioData'
+import { navSections, profile } from './data/portfolioData'
 import { useActiveSection } from './hooks/useActiveSection'
 
-function App() {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme')
-    if (savedTheme) {
-      return savedTheme
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
+const sectionIds = navSections.map(({ id }) => id)
 
-  const sectionIds = useMemo(() => navSections.map((section) => section.id), [])
+function App() {
+  const [theme, setTheme] = useState(() => localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark')
   const activeSection = useActiveSection(sectionIds)
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.dataset.theme = theme
     localStorage.setItem('portfolio-theme', theme)
   }, [theme])
 
-  useEffect(() => {
-    document.title = 'Kyaw Zin Hein | Portfolio'
-    const metaDescription = document.querySelector('meta[name="description"]')
-
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        'content',
-        'Modern personal portfolio for Kyaw Zin Hein, aspiring DevOps and Cybersecurity engineer.',
-      )
-      return
-    }
-
-    const tag = document.createElement('meta')
-    tag.setAttribute('name', 'description')
-    tag.setAttribute(
-      'content',
-      'Modern personal portfolio for Kyaw Zin Hein, aspiring DevOps and Cybersecurity engineer.',
-    )
-    document.head.appendChild(tag)
-  }, [])
-
-  const handleNavigate = (sectionId) => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
-  }
-
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to content
-      </a>
-      <BackgroundEffects />
-      <CursorGlow />
-
-      <div className="relative z-10">
-        <Navbar
-          sections={navSections}
-          activeSection={activeSection}
-          onNavigate={handleNavigate}
-          theme={theme}
-          onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
-        />
-
-        <main id="main-content" tabIndex="-1">
-          <Hero onProjectsClick={() => handleNavigate('projects')} onContactClick={() => handleNavigate('contact')} />
-          <About skillGroups={aboutSkills} />
-          <Projects projects={projectItems} />
-          <Skills items={toolSkills} />
-          <Journey milestones={milestones} />
-          <Contact />
-        </main>
-
-        <footer className="px-4 pb-10 text-center text-xs text-slate-600 dark:text-slate-400 sm:px-8">
-          <p>© {new Date().getFullYear()} Kyaw Zin Hein. Built with React, Tailwind, and Framer Motion.</p>
-        </footer>
-      </div>
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <Navbar
+        sections={navSections}
+        activeSection={activeSection}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
+      />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <Projects />
+        <About />
+        <Journey />
+        <Skills />
+        <Contact />
+      </main>
+      <footer className="shell footer">
+        <p>© {new Date().getFullYear()} {profile.name}</p>
+        <a className="text-link" href="#hero">Back to top <FiArrowUp aria-hidden="true" /></a>
+      </footer>
     </>
   )
 }

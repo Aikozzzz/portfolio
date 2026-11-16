@@ -4,29 +4,29 @@ export function useActiveSection(sectionIds) {
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? 'hero')
 
   useEffect(() => {
-    const observers = []
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean)
+    let frame = 0
 
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id)
-      if (!element) {
-        return
-      }
+    function update() {
+      frame = 0
+      const readingLine = window.innerHeight * 0.4
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+      const current = atBottom ? sections.at(-1) : sections.findLast((section) => section.getBoundingClientRect().top <= readingLine)
+      setActiveSection(current?.id ?? sectionIds[0])
+    }
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id)
-          }
-        },
-        { rootMargin: '-45% 0px -45% 0px', threshold: 0.1 },
-      )
+    function scheduleUpdate() {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
 
-      observer.observe(element)
-      observers.push(observer)
-    })
+    update()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
 
     return () => {
-      observers.forEach((observer) => observer.disconnect())
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
     }
   }, [sectionIds])
 

@@ -1,37 +1,34 @@
-import { motion } from 'framer-motion'
-import { revealItem, revealViewport, staggerContainer } from '../lib/motion'
+import { credentials, milestones } from '../data/portfolioData'
 import SectionTitle from './SectionTitle'
 
-export default function Journey({ milestones }) {
+export default function Journey() {
   return (
-    <section id="journey" className="px-4 py-8 sm:px-8 sm:py-10">
-      <div className="mx-auto max-w-5xl">
-        <SectionTitle
-          eyebrow="Experience"
-          title="Learning Journey"
-          subtitle="A timeline of my education, certifications, leadership roles, and growth toward infrastructure engineering."
-        />
-
-        <motion.div
-          className="relative mx-auto mt-6 max-w-3xl border-l border-sky-500/45 pl-6 dark:border-sky-300/35 sm:pl-8"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={revealViewport}
-        >
+    <section className="shell section experience-section" id="journey" aria-labelledby="experience-title" tabIndex={-1}>
+      <SectionTitle id="experience-title" title="Experience & education" />
+      <div className="experience-grid">
+        <ol className="experience-list">
           {milestones.map((item) => (
-            <motion.article
-              key={item.title}
-              className="relative mb-8 rounded-xl border border-slate-300/60 bg-white/75 p-5 transition-colors duration-300 hover:border-sky-400/40 dark:border-white/10 dark:bg-slate-900/60"
-              variants={revealItem}
-            >
-              <span className="absolute -left-[2.1rem] top-8 h-3 w-3 rounded-full bg-sky-300 shadow-[0_0_22px_rgba(56,189,248,0.75)] sm:-left-[2.55rem]" />
-              <p className="text-xs uppercase tracking-[0.25em] text-violet-700 dark:text-violet-200">{item.year}</p>
-              <h3 className="mt-2 font-heading text-xl text-slate-900 dark:text-white">{item.title}</h3>
-              <p className="mt-3 text-sm text-slate-700 dark:text-slate-300">{item.description}</p>
-            </motion.article>
+            <li key={item.title}>
+              <p className="metadata">{item.year}</p>
+              <div>
+                <h3>{item.title}</h3>
+                <p className="organization">{item.organization}</p>
+                <p>{item.description}</p>
+              </div>
+            </li>
           ))}
-        </motion.div>
+        </ol>
+        <div className="credentials">
+          <h3>Credentials</h3>
+          <ul>
+            {credentials.map((item) => (
+              <li key={item.title}>
+                <p>{item.title}</p>
+                <span>{item.issuer} · {item.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

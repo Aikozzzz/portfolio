@@ -45,7 +45,7 @@ function OrbitingShapes() {
       <mesh>
         <icosahedronGeometry args={[1.35, 1]} />
         <meshStandardMaterial
-          color="#7dd3fc"
+          color="#ff8b63"
           metalness={0.42}
           roughness={0.3}
           transparent
@@ -58,7 +58,7 @@ function OrbitingShapes() {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
         </bufferGeometry>
-        <pointsMaterial color={new THREE.Color('#a78bfa')} size={0.03} sizeAttenuation transparent opacity={0.62} />
+        <pointsMaterial color={new THREE.Color('#ffbb8e')} size={0.03} sizeAttenuation transparent opacity={0.62} />
       </points>
     </group>
   )
