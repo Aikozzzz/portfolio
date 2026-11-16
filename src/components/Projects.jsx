@@ -47,43 +47,55 @@ export default function Projects() {
             </div>
             {project.conference && <ConferencePhoto {...project.conference} />}
             <div className="project-details">
-              {project.contribution && <p className="project-contribution">{project.contribution}</p>}
-              {project.detail && <p className="project-description">{project.detail}</p>}
-              {project.stack && (
-                <ul className="tags" aria-label="Technologies">
-                  {project.stack.map((technology) => <li key={technology}>{technology}</li>)}
-                </ul>
+              {project.detail && (
+                <p className="project-description">
+                  {project.detail}
+                  {project.liveRequiresSignIn && ' The live site requires sign-in.'}
+                </p>
               )}
-              <div className="project-links">
-                {project.github && (
-                  <a className="text-link project-link" href={project.github} target="_blank" rel="noreferrer" aria-label={`View ${project.title} repository`}>
-                    <FiGithub aria-hidden="true" /> View repository <FiArrowUpRight aria-hidden="true" />
-                  </a>
+              <footer className="project-footer">
+                {project.stack && (
+                  <ul className="tags" aria-label="Technologies">
+                    {project.stack.map((technology) => <li key={technology}>{technology}</li>)}
+                  </ul>
                 )}
-                {project.live && (
-                  <a
-                    className="text-link project-live-link"
-                    href={project.live}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${project.liveLabel ?? 'Live site'} for ${project.title}`}
-                  >
-                    {project.liveLabel ?? 'Live site'} <FiArrowUpRight aria-hidden="true" />
-                  </a>
-                )}
-                {project.conference && (
-                  <a className="text-link certificate-link" href={conferenceCertificate} target="_blank" rel="noreferrer">
-                    <img src={certificateThumbnail} alt="" width="144" height="101" loading="lazy" decoding="async" />
-                    <span>View presentation certificate</span>
-                    <FiArrowUpRight aria-hidden="true" />
-                  </a>
-                )}
-                {project.evidence && (
-                  <a className="text-link" href={project.evidence.url} target="_blank" rel="noreferrer">
-                    {project.evidence.label} <FiArrowUpRight aria-hidden="true" />
-                  </a>
-                )}
-              </div>
+                <div className="project-links">
+                  {project.github && (
+                    <a
+                      className="text-link project-link"
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`View repository for ${project.title}`}
+                    >
+                      <FiGithub aria-hidden="true" /> View repository
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      className="text-link project-live-link"
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Live site for ${project.title}${project.liveRequiresSignIn ? ' (sign-in required)' : ''}`}
+                    >
+                      Live site <FiArrowUpRight aria-hidden="true" />
+                    </a>
+                  )}
+                  {project.conference && (
+                    <a className="text-link project-link certificate-link" href={conferenceCertificate} target="_blank" rel="noreferrer">
+                      <img src={certificateThumbnail} alt="" width="144" height="101" loading="lazy" decoding="async" />
+                      <span>View presentation certificate</span>
+                      <FiArrowUpRight aria-hidden="true" />
+                    </a>
+                  )}
+                  {project.evidence && (
+                    <a className="text-link" href={project.evidence.url} target="_blank" rel="noreferrer">
+                      {project.evidence.label} <FiArrowUpRight aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
+              </footer>
             </div>
           </article>
         ))}
@@ -93,8 +105,10 @@ export default function Projects() {
         <ul>
           {otherProjects.map(({ title, github, live }) => (
             <li key={title}>
-              <a className="text-link" href={github} target="_blank" rel="noreferrer">{title} <FiArrowUpRight aria-hidden="true" /></a>
-              {live && <a className="text-link" href={live} target="_blank" rel="noreferrer" aria-label={`Visit live site for ${title}`}>Live site <FiArrowUpRight aria-hidden="true" /></a>}
+              <a className="text-link project-link" href={github} target="_blank" rel="noreferrer" aria-label={`${title} repository`}>
+                {title} <FiGithub aria-hidden="true" />
+              </a>
+              {live && <a className="text-link project-live-link" href={live} target="_blank" rel="noreferrer" aria-label={`Live site for ${title}`}>Live site <FiArrowUpRight aria-hidden="true" /></a>}
             </li>
           ))}
         </ul>

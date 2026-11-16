@@ -71,7 +71,7 @@ Use a single-page structure with deep links for each section.
 2. **Hero**
 3. **Selected Work**
 4. **About**
-5. **Experience and Leadership**
+5. **Experience, Education, and Volunteering**
 6. **Skills and Tools**
 7. **Certifications and Education**
 8. **GitHub or Engineering Activity**
@@ -213,6 +213,8 @@ Show three to five strong projects. Each project card should include:
 
 Below 768 px, place the featured project's title and takeaway before its conference photo in the layout and reading order. At 768 px and above, keep the photo beside the copy. Supporting cards lead with the title and takeaway, followed by the contribution, any verified result or learning, and available links.
 
+Group technology tags and links in a footer on each supporting card. Put the repository on the left and the live site on the right when available. Place evidence links after the repository. Use text links for all project actions, including the featured presentation certificate. Allow links to wrap on narrow screens.
+
 Recommended featured project categories:
 
 1. High-performance or distributed systems
@@ -224,7 +226,7 @@ Recommended featured project categories:
 
 - One large featured card
 - Supporting cards in one column on mobile and two at wider widths
-- Remaining work in a compact list
+- Remaining work in a single-column list with the repository on the left and the live-site action on the right when available
 
 Hover effects may include a small lift, moving border light, image parallax, and arrow movement. Never rotate cards so much that text becomes hard to read.
 
@@ -242,16 +244,16 @@ Include:
 
 Avoid a long autobiography.
 
-### 6.5 Experience and Leadership
+### 6.5 Experience, Education, and Volunteering
 
-Use an animated vertical timeline or stacked cards.
+Use clearly labeled groups for education, experience, and volunteering. Keep licenses and certifications alongside them at desktop widths.
 
 Each item:
 
 - Organization
 - Role
-- Dates
-- Two or three concise impact bullets
+- Dates when provided
+- A concise description or time commitment when provided
 - Optional technologies or competencies
 
 Potential categories:
@@ -282,11 +284,12 @@ Include:
 
 - University of Information Technology, Yangon
 - Relevant specialization or major
+- Diploma in Networking at NIT Institute, Yangon
 - ITPEC IP
 - ITPEC FE
 - Japanese language level when appropriate
 
-Credentials should include issuer and year. Add verification links only when available.
+List licenses and certifications newest first, with the issuer and issue month and year. Add verification links only when available.
 
 ### 6.8 Contact
 
@@ -475,7 +478,7 @@ src/
 └── assets/
 ```
 
-Shared profile details, project entries, skills, experience, and credentials live in `src/data/portfolioData.js`. Theme and layout tokens live in `src/index.css`.
+Shared profile details, project entries, skills, education, experience, volunteering, and credentials live in `src/data/portfolioData.js`. Theme and layout tokens live in `src/index.css`.
 
 ---
 

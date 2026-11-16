@@ -28,8 +28,7 @@ export const projectItems = [
   {
     title: 'NGINX Autoscaling Lab',
     summary: 'How does NGINX behave under the same load with fixed replicas and with Kubernetes autoscaling?',
-    contribution: 'I built the K3s testbed, a repeatable Locust load test, and a Streamlit dashboard.',
-    detail: 'The lab compares request latency, CPU and memory use, and replica counts across both configurations.',
+    detail: 'I built a K3s testbed, a repeatable Locust load test, and a Streamlit dashboard to compare request latency, CPU and memory use, and replica counts.',
     stack: ['K3s', 'NGINX', 'Ansible', 'Locust', 'Prometheus', 'Streamlit'],
     github: 'https://github.com/Aikozzzz/HPA_Performance_analysis',
     evidence: { label: 'Test procedure', url: 'https://github.com/Aikozzzz/HPA_Performance_analysis/blob/main/test.md' },
@@ -56,7 +55,7 @@ export const projectItems = [
     stack: ['Next.js', 'TypeScript', 'Supabase', 'Groq'],
     github: 'https://github.com/Aikozzzz/supply-link',
     live: 'https://oceanpride.vercel.app/login',
-    liveLabel: 'Live site (sign-in required)',
+    liveRequiresSignIn: true,
   },
 ]
 
@@ -99,30 +98,94 @@ export const toolSkills = [
   },
 ]
 
-export const milestones = [
+export const education = [
   {
-    year: '2026',
-    title: 'Event organizing committee',
-    organization: 'AIESEC in Myanmar',
-    description: 'Helped organize events, including the International Women’s Day event.',
-  },
-  {
-    year: '2025',
-    title: 'External and Internal Relations team member',
-    organization: 'AIESEC in Myanmar',
-    description: 'Contributed to the relations team and helped showcase the group through its public team website.',
-  },
-  {
-    year: '2022 – Present',
+    period: '2022 – Present',
     title: 'High Performance Computing',
     organization: 'University of Information Technology, Yangon',
     description: 'Pursuing a bachelor’s degree with a focus on distributed systems, Linux, and performance analysis.',
   },
+  {
+    period: '2026 – Present',
+    title: 'Diploma in Networking',
+    organization: 'NIT Institute, Yangon',
+  },
+]
+
+export const experience = [
+  {
+    period: 'Aug 2025 – Mar 2026',
+    title: 'External Relations Team Member',
+    organization: 'AIESEC in West Yangon',
+  },
+  {
+    title: 'International Women’s Day (IWD)',
+    organization: 'AIESEC in Myanmar',
+    description: 'Organizing Committee Team Member',
+  },
+  {
+    title: 'Youth to Youth',
+    organization: 'AIESEC in West Yangon',
+    description: 'Organizing Committee Team Member',
+  },
+]
+
+export const volunteering = [
+  {
+    period: 'Aug 2025 – Mar 2026',
+    title: 'External and Internal Relations Team Member',
+    organization: 'AIESEC in West Yangon',
+  },
+  {
+    title: 'Library Volunteer',
+    organization: 'University of Yangon',
+    description: '100 volunteer hours',
+  },
 ]
 
 export const credentials = [
-  { year: '2026', title: 'AWS Academy Graduate – Cloud Foundations', issuer: 'AWS Academy' },
-  { year: '2025', title: 'CCNA: Introduction to Networks', issuer: 'Cisco Networking Academy' },
-  { year: '2025', title: 'CCNA: Switching, Routing, and Wireless Essentials', issuer: 'Cisco Networking Academy' },
-  { year: '2025', title: 'Junior Cybersecurity Analyst Career Path', issuer: 'Cisco Networking Academy' },
+  {
+    issued: '2026-07',
+    title: 'Japanese-Language Proficiency Test (JLPT) N3',
+    issuer: 'The Japan Foundation',
+  },
+  {
+    issued: '2026-04',
+    title: 'AWS Academy Graduate – Cloud Foundations – Training Badge',
+    issuer: 'Amazon Web Services (AWS)',
+    badgeUrl: 'https://www.credly.com/badges/ba7792f0-85d9-4f3f-b02e-25001e939ff0',
+  },
+  {
+    issued: '2025-12',
+    title: 'CCNA: Introduction to Networks',
+    issuer: 'Cisco',
+    badgeUrl: 'https://www.credly.com/badges/1998d938-765c-4c41-9dd8-c4f8cc1df72f',
+  },
+  {
+    issued: '2025-12',
+    title: 'CCNA: Switching, Routing, and Wireless Essentials',
+    issuer: 'Cisco',
+    badgeUrl: 'https://www.credly.com/badges/3777620d-af4f-4deb-8e80-805fe02a2529',
+  },
+  {
+    issued: '2025-12',
+    title: 'Junior Cybersecurity Analyst Career Path',
+    issuer: 'Cisco',
+    badgeUrl: 'https://www.credly.com/badges/1643c131-202c-4a9e-a0e3-a8750e839cbe',
+  },
+  {
+    issued: '2024-10',
+    title: 'Fundamental Information Technology Engineer Examination (FE)',
+    issuer: 'Information Technology Professionals Examination Council (ITPEC)',
+  },
+  {
+    issued: '2023-12',
+    title: 'Japanese-Language Proficiency Test (JLPT) N4',
+    issuer: 'The Japan Foundation',
+  },
+  {
+    issued: '2023-10',
+    title: 'Information Technology Passport (IP)',
+    issuer: 'Information Technology Professionals Examination Council (ITPEC)',
+  },
 ]

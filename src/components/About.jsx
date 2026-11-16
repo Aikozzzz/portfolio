@@ -1,5 +1,5 @@
 import { FiBookOpen, FiMapPin } from 'react-icons/fi'
-import { profile } from '../data/portfolioData'
+import { education, profile } from '../data/portfolioData'
 import SectionTitle from './SectionTitle'
 
 export default function About() {
@@ -15,7 +15,9 @@ export default function About() {
         <dl className="about-details">
           <div>
             <dt><FiBookOpen aria-hidden="true" /> Education</dt>
-            <dd>University of Information Technology<br />High Performance Computing</dd>
+            {education.map(({ title, organization }) => (
+              <dd key={title}>{organization}<br />{title}</dd>
+            ))}
           </div>
           <div>
             <dt><FiMapPin aria-hidden="true" /> Based in</dt>
