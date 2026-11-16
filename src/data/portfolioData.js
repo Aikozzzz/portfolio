@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Kyaw Zin Hein',
-  location: 'Hlaing Township, Yangon',
+  location: 'Yangon, Myanmar',
   email: 'kyaw24295968@gmail.com',
   github: 'https://github.com/Aikozzzz',
   linkedin: 'https://www.linkedin.com/in/kyaw-zin-hein-a21abb37b/',
@@ -16,38 +16,48 @@ export const navSections = [
   { id: 'contact', label: 'Contact' },
 ]
 
+export const featuredResearch = {
+  slug: 'scheduler-ha-web-services',
+  title: 'Scheduler-Based High Availability for Containerized Web Services in a Small-Scale HPC Cluster',
+  summary: 'This research explores how a small Slurm-managed HPC cluster can keep containerized web services reachable during component failures.',
+  evidence: { label: 'ICAIT 2026 conference', url: 'https://www.uit.edu.mm/icait-2026' },
+  conference: { event: 'ICAIT 2026', dateTime: '2026-11-05', date: '5 November 2026', location: 'Yangon, Myanmar' },
+}
+
 export const projectItems = [
+  featuredResearch,
   {
     title: 'NGINX Autoscaling Lab',
-    category: 'Infrastructure · Academic lab',
-    description: 'How does a web service behave under the same load with fixed replicas and with Kubernetes autoscaling? I put together a K3s testbed, a repeatable Locust workload, and a Streamlit dashboard to compare latency, resource use, and replica counts.',
+    summary: 'How does NGINX behave under the same load with fixed replicas and with Kubernetes autoscaling?',
+    contribution: 'I built the K3s testbed, a repeatable Locust load test, and a Streamlit dashboard.',
+    detail: 'The lab compares request latency, CPU and memory use, and replica counts across both configurations.',
     stack: ['K3s', 'NGINX', 'Ansible', 'Locust', 'Prometheus', 'Streamlit'],
     github: 'https://github.com/Aikozzzz/HPA_Performance_analysis',
-    visual: 'scaling',
+    evidence: { label: 'Test procedure', url: 'https://github.com/Aikozzzz/HPA_Performance_analysis/blob/main/test.md' },
   },
   {
     title: 'SafeMyanmar',
-    category: 'Mobile · Academic project',
-    description: 'An Android app that brings USGS earthquake observations, a Yangon navigation snapshot, and offline preparedness guides into one place.',
-    stack: ['Flutter', 'Dart', 'PostgreSQL', 'Mapbox'],
+    summary: 'Share SOS locations with nearby phones over Bluetooth and access emergency guides offline.',
+    detail: 'The Android app maps received SOS locations and includes English and Burmese guides. An optional on-device Gemma model can answer general questions offline.',
+    stack: ['Flutter', 'Bluetooth LE', 'Gemma', 'Mapbox'],
     github: 'https://github.com/Aikozzzz/safe_myanmar',
-    visual: 'map',
   },
   {
     title: 'Nihon Sar Loat',
-    category: 'Full-stack · Study tools',
-    description: 'A JLPT N2 study workspace that turns PDF imports into editable study material and supports flashcard practice and library browsing.',
+    summary: 'Turn PDFs into editable study material for the JLPT N2.',
+    detail: 'The workspace supports flashcard practice and browsing a study library.',
     stack: ['Next.js', 'TypeScript', 'PostgreSQL'],
     github: 'https://github.com/Aikozzzz/Nihon_Sar_Loat',
-    visual: 'study',
+    live: 'https://nihongojyouzudesune.vercel.app/',
   },
   {
     title: 'Supply Link',
-    category: 'Full-stack · Operations',
-    description: 'A wholesale ordering platform that connects shops, branches, headquarters, and drivers through checkout, stock replenishment, and delivery tracking.',
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'Mapbox'],
+    summary: 'AI-assisted stock planning helps headquarters set backup inventory targets for wholesale branches.',
+    detail: 'Supply Link recommends targets from demand and refill history, with Groq-generated explanations for headquarters to review.',
+    stack: ['Next.js', 'TypeScript', 'Supabase', 'Groq'],
     github: 'https://github.com/Aikozzzz/supply-link',
-    visual: 'supply',
+    live: 'https://oceanpride.vercel.app/login',
+    liveLabel: 'Live site (sign-in required)',
   },
 ]
 

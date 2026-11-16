@@ -21,7 +21,7 @@ export default function Navbar({ sections, activeSection, theme, onToggleTheme }
     <header className="site-header" onKeyDown={closeOnEscape}>
       <div className="shell header-inner">
         <a className="wordmark" href="#hero" aria-label="Kyaw Zin Hein, home" onClick={() => setMenuOpen(false)}>
-          <span aria-hidden="true">KZH<span>.</span></span>
+          <span aria-hidden="true">KZH</span>
         </a>
         <nav ref={nav} id="primary-nav" aria-label="Primary" className={menuOpen ? 'site-nav is-open' : 'site-nav'}>
           <ul>

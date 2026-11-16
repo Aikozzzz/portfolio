@@ -38,9 +38,9 @@ The design uses charcoal and near-black surfaces, warm red-orange accents, and a
 
 > I build reliable, human-friendly software and infrastructure, with interests in full-stack development, DevOps, cloud systems, and high-performance computing.
 
-### Suggested role line
+### Hero role line
 
-**Software Engineer · DevOps & Cloud Learner · HPC Student**
+**High Performance Computing student seeking software and infrastructure internships.**
 
 ### Personality
 
@@ -114,11 +114,11 @@ Design references: [Lynn Htet Thant](https://lynnhtet-drab.vercel.app/) and [Kau
 | Reference red | `#E50914` |
 | Reference orange | `#DF3D00` |
 
-The brighter action fill and accent text support contrast on buttons and links. The red appears in the wordmark, and orange tints the contact panel.
+The brighter action fill and accent text support contrast on buttons and links. The red appears in the favicon, and orange tints the contact panel.
 
 ### 5.3 Image treatment
 
-Use the supplied headshot in a warm frame that preserves the full photo. Use project-specific diagrams and illustrations in Selected Work. Keep glow and motion inside visual elements so reading surfaces stay quiet.
+Display the supplied headshot as a transparent cutout inside a rounded frame with a 2 px white border. In Selected Work, reserve imagery for the featured ICAIT presentation.
 
 ### 5.4 Typography
 
@@ -184,8 +184,8 @@ The hero must contain:
 - Name
 - Role line
 - One concise value statement
-- Primary action: **View Projects**
-- Secondary action: **Download Résumé** or **Contact Me**
+- Primary action: **View my work**
+- Secondary action: **Contact me** until a public résumé is reviewed, then **Download résumé**
 - GitHub and LinkedIn links
 - Lightweight visual system on the right or in the background
 
@@ -195,21 +195,16 @@ Suggested hero copy structure:
 Available for internships and collaborative projects
 
 Kyaw Zin Hein
-Software Engineer · DevOps & Cloud Learner · HPC Student
+High Performance Computing student seeking software and infrastructure internships.
 
-I build reliable applications and infrastructure, from modern web products to distributed and high-availability systems.
+I build web and mobile apps and test how infrastructure behaves under load.
 ```
 
-Hero visual ideas:
-
-- Abstract low-poly orb or particle network
-- Animated grid with subtle pointer response
-- Floating technical keywords such as React, Docker, SLURM, AWS, and Python
-- Terminal-inspired status card showing current focus
-
-Do not place a complex 3D model directly behind the main text.
+Show the portrait with a **Yangon, Myanmar** caption while the portfolio owner reviews whether a more precise location is suitable for publication. Keep the availability, copy, and actions before the portrait on mobile.
 
 ### 6.3 Selected Work
+
+Lead with the scheduler-based high-availability research presented at ICAIT 2026. Use a short overview, the conference photo, and the presentation certificate. Link to the research from the hero.
 
 Show three to five strong projects. Each project card should include:
 
@@ -219,7 +214,8 @@ Show three to five strong projects. Each project card should include:
 - Three to six technologies
 - One measurable or concrete result
 - Repository and live-demo links when available
-- Visual preview or architecture image
+
+Below 768 px, place the featured project's title and takeaway before its conference photo in the layout and reading order. At 768 px and above, keep the photo beside the copy. Supporting cards lead with the title and takeaway, followed by the contribution, any verified result or learning, and available links.
 
 Recommended featured project categories:
 
@@ -231,7 +227,7 @@ Recommended featured project categories:
 #### Project card variants
 
 - One large featured card
-- Two medium cards
+- Supporting cards in one column on mobile and two at wider widths
 - Remaining work in a compact list
 
 Hover effects may include a small lift, moving border light, image parallax, and arrow movement. Never rotate cards so much that text becomes hard to read.
@@ -307,6 +303,8 @@ Include:
 - Contact form
 - GitHub and LinkedIn
 - Response expectation without making a rigid promise
+
+Place a **Copy email address** control beside the email link and announce the result. With no form endpoint, explain that the form opens an email draft and label the submit action **Open email draft**. With an endpoint, use **Send message** and preserve the entries on failure so visitors can retry or open a draft.
 
 Form fields:
 
