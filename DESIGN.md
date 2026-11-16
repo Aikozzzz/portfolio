@@ -117,7 +117,7 @@ The brighter action fill and accent text support contrast on buttons and links. 
 
 ### 5.3 Image treatment
 
-Display the supplied headshot as a transparent cutout inside a rounded frame with a 2 px white border. In Selected Work, reserve imagery for the featured ICAIT presentation.
+Display the supplied headshot as a transparent cutout inside a rounded frame with a 2 px white border. Fill the frame width and crop from the lower torso to keep the head fully visible and the shoulders anchored to the frame. In Selected Work, reserve imagery for the featured ICAIT presentation.
 
 ### 5.4 Typography
 
@@ -232,15 +232,15 @@ Hover effects may include a small lift, moving border light, image parallax, and
 
 ### 6.4 About
 
-Keep the About section personal but career-focused.
+Keep the About section focused on Kyaw’s studies, learning habits, and how he works with others.
 
 Include:
 
 - Current university and specialization
 - Main engineering interests
 - What kinds of problems Kyaw enjoys solving
-- Current learning goals
-- One human detail, such as Japanese learning, guitar, or community leadership
+- How Kyaw learns from mistakes and improves his approach
+- How Kyaw communicates and works with teammates
 
 Avoid a long autobiography.
 

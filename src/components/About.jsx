@@ -8,9 +8,13 @@ export default function About() {
       <SectionTitle id="about-title" title="About me" />
       <div className="about-grid">
         <div className="about-copy">
-          <p className="about-lead">I like the work that happens on both sides of an application.</p>
-          <p>I’m a High Performance Computing student at the University of Information Technology in Yangon. Building web and mobile apps gets me thinking about the systems that keep them responsive and reliable.</p>
-          <p>I’m currently learning how to test those systems under load and make sense of the results. Outside of infrastructure labs, I study Japanese and build tools to make that practice easier.</p>
+          <p className="about-lead">I make time to learn every day.</p>
+          <p>
+            I’m a High Performance Computing student at the University of Information Technology in Yangon.
+            Building web and mobile apps gives me a way to put what I learn into practice. When I make a mistake,
+            I work out why it happened and change my approach so I can avoid repeating it.
+          </p>
+          <p>I enjoy working in teams, sharing what I learn, and talking through problems together.</p>
         </div>
         <dl className="about-details">
           <div>
