@@ -113,7 +113,7 @@ export default function Contact() {
       <div className="contact-panel">
         <div className="contact-copy">
           <SectionTitle id="contact-title" title="Let’s get in touch." />
-          <p>I’m open to internships in software and infrastructure, and to collaborating on projects.</p>
+          <p>Send me a message if you’d like to discuss my projects or research.</p>
           <div className="email-options">
             <a className="text-link email-link" href={`mailto:${profile.email}`}>
               <FiMail aria-hidden="true" /> <span>{profile.email}</span>

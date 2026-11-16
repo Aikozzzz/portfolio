@@ -4,7 +4,6 @@ export const profile = {
   email: 'kyaw24295968@gmail.com',
   github: 'https://github.com/Aikozzzz',
   linkedin: 'https://www.linkedin.com/in/kyaw-zin-hein-a21abb37b/',
-  availability: 'Open to internships and collaborations',
 }
 
 export const navSections = [

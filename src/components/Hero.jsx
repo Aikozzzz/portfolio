@@ -14,9 +14,8 @@ export default function Hero() {
         animate={{ y: 0 }}
         transition={{ duration: reduceMotion ? 0 : 0.45, ease: 'easeOut' }}
       >
-        <p className="availability"><span aria-hidden="true" /> {profile.availability}</p>
         <h1 id="hero-title">{profile.name}</h1>
-        <p className="hero-role">High Performance Computing student seeking software and infrastructure internships.</p>
+        <p className="hero-role">High Performance Computing student at the University of Information Technology.</p>
         <p className="hero-description">
           I build web and mobile apps and test how infrastructure behaves under load.
         </p>

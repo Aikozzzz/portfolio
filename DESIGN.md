@@ -5,7 +5,7 @@
 **Project:** Kyaw Zin Hein — Personal Portfolio  
 **Type:** Public-facing developer portfolio  
 **Primary stack:** React, Vite, Tailwind CSS, Framer Motion, React Three Fiber, Three.js  
-**Primary audience:** Recruiters, engineering managers, internship reviewers, collaborators, and other developers
+**Primary audience:** Peers, researchers, collaborators, and engineering teams
 
 The website should present Kyaw Zin Hein as a capable early-career software, cloud, DevOps, and high-performance computing engineer. It should feel modern, technically confident, and memorable without becoming difficult to read or slow to load.
 
@@ -20,11 +20,10 @@ The design uses charcoal and near-black surfaces, warm red-orange accents, and a
 3. Make it easy to open GitHub, LinkedIn, a résumé, and contact options.
 4. Create a memorable experience through purposeful animation rather than visual noise.
 5. Load quickly and remain usable on low-powered devices and unstable connections.
-6. Look professional enough for internship and junior engineering applications.
 
 ### Success signals
 
-- A visitor understands the target roles from the hero section.
+- A visitor understands Kyaw’s background and the kind of work he does from the hero section.
 - Featured projects can be scanned without opening every project.
 - The site works with keyboard navigation and reduced-motion settings.
 - Core content remains available when JavaScript animation or WebGL is unavailable.
@@ -40,7 +39,7 @@ The design uses charcoal and near-black surfaces, warm red-orange accents, and a
 
 ### Hero role line
 
-**High Performance Computing student seeking software and infrastructure internships.**
+**High Performance Computing student at the University of Information Technology.**
 
 ### Personality
 
@@ -180,7 +179,6 @@ Mobile behavior:
 
 The hero must contain:
 
-- Availability indicator
 - Name
 - Role line
 - One concise value statement
@@ -192,15 +190,13 @@ The hero must contain:
 Suggested hero copy structure:
 
 ```text
-Available for internships and collaborative projects
-
 Kyaw Zin Hein
-High Performance Computing student seeking software and infrastructure internships.
+High Performance Computing student at the University of Information Technology.
 
 I build web and mobile apps and test how infrastructure behaves under load.
 ```
 
-Show the portrait with a **Yangon, Myanmar** caption while the portfolio owner reviews whether a more precise location is suitable for publication. Keep the availability, copy, and actions before the portrait on mobile.
+Show the portrait with a **Yangon, Myanmar** caption while the portfolio owner reviews whether a more precise location is suitable for publication. Keep the copy and actions before the portrait on mobile.
 
 ### 6.3 Selected Work
 

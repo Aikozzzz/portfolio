@@ -34,7 +34,6 @@
   --color-action: #ed5429;
   --color-action-hover: #ff7048;
   --color-orange: #df3d00;
-  --color-success: #71d89a;
   --color-ink: #190d08;
   --color-input-border: #93847b;
   --color-error: #ff9e85;
@@ -55,7 +54,6 @@
   --color-text: #241b16;
   --color-muted: #60534d;
   --color-accent: #a33514;
-  --color-success: #237344;
   --color-input-border: #7d6c61;
   --color-error: #a33514;
 }
@@ -136,18 +134,7 @@ main:focus, section[tabindex]:focus { outline: none; }
   padding-block: clamp(38px, 4.7vw, 72px) clamp(48px, 5vw, 76px);
 }
 
-.availability {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
-  width: fit-content;
-  color: var(--color-muted);
-  font-size: .875rem;
-  font-weight: 600;
-}
-
-.availability > span { width: .51rem; height: .51rem; flex: 0 0 .51rem; border-radius: 50%; background: var(--color-success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-success) 13%, transparent); }
-.hero h1 { margin: .78rem 0 1rem; font: 700 clamp(3.5rem, 8.4vw, 7.5rem)/.88 var(--font-display); letter-spacing: -.026em; text-transform: uppercase; text-wrap: balance; }
+.hero h1 { margin-bottom: 1rem; font: 700 clamp(3.5rem, 8.4vw, 7.5rem)/.88 var(--font-display); letter-spacing: -.026em; text-transform: uppercase; text-wrap: balance; }
 .hero-role { max-width: 35ch; font-size: clamp(1.125rem, 2vw, 1.55rem); line-height: 1.26; font-weight: 700; letter-spacing: -.025em; }
 .hero-description { max-width: 46ch; margin-top: .66rem; color: var(--color-muted); font-size: clamp(1rem, 1.4vw, 1.14rem); }
 .hero-actions, .hero-socials { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
