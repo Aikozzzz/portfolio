@@ -128,7 +128,7 @@ export default function Contact() {
             <a className="text-link" href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" /> LinkedIn</a>
           </div>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit} onChange={handleChange} noValidate>
+        <form className="contact-form" onSubmit={handleSubmit} onChange={handleChange} noValidate data-reveal>
           {!formEndpoint && <p className="form-note">This form opens a draft in your email app.</p>}
           <div className="form-pair">
             <div className="form-field">

@@ -10,7 +10,7 @@ const issueDateFormatter = new Intl.DateTimeFormat('en', {
 
 function JourneyGroup({ heading, items }) {
   return (
-    <section className="journey-group">
+    <section className="journey-group" data-reveal>
       <h3>{heading}</h3>
       <ul className="experience-list">
         {items.map(({ title, organization, period, description }) => (
@@ -38,7 +38,7 @@ export default function Journey() {
           <JourneyGroup heading="Experience" items={experience} />
           <JourneyGroup heading="Volunteering" items={volunteering} />
         </div>
-        <div className="credentials">
+        <div className="credentials" data-reveal>
           <h3>Licenses &amp; certifications</h3>
           <ul>
             {credentials.map(({ title, issuer, issued, badgeUrl }) => {

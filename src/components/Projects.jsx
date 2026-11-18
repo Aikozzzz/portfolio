@@ -9,14 +9,16 @@ function ConferencePhoto({ event, dateTime, date, location }) {
   return (
     <div className="conference-visual">
       <figure className="conference-photo">
-        <img
-          src={conferencePhoto}
-          alt="Kyaw Zin Hein presenting the scheduler-based high-availability research beside the title slide at ICAIT 2026."
-          width="1024"
-          height="768"
-          loading="lazy"
-          decoding="async"
-        />
+        <div className="conference-photo-image">
+          <img
+            src={conferencePhoto}
+            alt="Kyaw Zin Hein presenting the scheduler-based high-availability research beside the title slide at ICAIT 2026."
+            width="1024"
+            height="768"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
         <figcaption>
           <span>{event} · <time dateTime={dateTime}>{date}</time></span>
           <span>{location}</span>
@@ -40,6 +42,7 @@ export default function Projects() {
             aria-labelledby={project.slug ? `${project.slug}-title` : undefined}
             tabIndex={project.slug ? -1 : undefined}
             key={project.title}
+            data-reveal
           >
             <div className="project-intro">
               <h3 id={project.slug ? `${project.slug}-title` : undefined}>{project.title}</h3>
@@ -104,7 +107,7 @@ export default function Projects() {
         <h3>More projects</h3>
         <ul>
           {otherProjects.map(({ title, github, live }) => (
-            <li key={title}>
+            <li key={title} data-reveal>
               <a className="text-link project-link" href={github} target="_blank" rel="noreferrer" aria-label={`${title} repository`}>
                 {title} <FiGithub aria-hidden="true" />
               </a>

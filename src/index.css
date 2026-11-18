@@ -42,6 +42,7 @@
   --font-mono: 'IBM Plex Mono', monospace;
   --page-gutter: clamp(18px, 4.8vw, 70px);
   --header-height: 76px;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
 }
 
 :root[data-theme='light'] {
@@ -119,10 +120,10 @@ main:focus, section[tabindex]:focus { outline: none; }
 .site-nav a:hover { color: var(--color-text); background: var(--color-raised); }
 .site-nav a[aria-current] { color: var(--color-accent); background: var(--color-raised); }
 .header-actions { justify-self: end; display: flex; align-items: center; gap: 7px; }
-.header-contact { border: 1px solid var(--color-border); }
+.header-contact { border: 1px solid var(--color-border); transition: border-color .2s; }
 .header-contact:hover { border-color: var(--color-accent); }
 .header-contact svg { color: var(--color-accent); }
-.icon-button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 7px; color: var(--color-muted); }
+.icon-button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 7px; color: var(--color-muted); transition: color .2s, background .2s; }
 .icon-button:hover { color: var(--color-text); background: var(--color-raised); }
 .menu-button { display: none; }
 
@@ -154,19 +155,17 @@ main:focus, section[tabindex]:focus { outline: none; }
   border-radius: 14px;
   font-size: .9rem;
   font-weight: 700;
-  transition: background .2s, border-color .2s, transform .2s;
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .2s var(--ease-out);
 }
-.button:hover { transform: translateY(-2px); }
 .button-primary { background: var(--color-action); color: var(--color-ink); }
-.button-primary:hover { background: var(--color-action-hover); }
+.button-primary:hover { background: var(--color-action-hover); box-shadow: 0 5px 20px color-mix(in srgb, var(--color-orange) 22%, transparent); }
 .button-secondary { border-color: var(--color-border); background: var(--color-surface); }
 .button-secondary:hover { border-color: var(--color-accent); }
 .button-secondary svg { color: var(--color-accent); }
 
 .text-link { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; color: var(--color-muted); font-size: .9rem; font-weight: 600; transition: color .2s; }
 .text-link:hover { color: var(--color-accent); }
-.text-link svg:last-child { transition: transform .2s; }
-.text-link:hover svg:last-child { transform: translate(2px, -2px); }
+.hero :is(.hero-actions, .hero-socials):focus-within { opacity: 1 !important; transform: none !important; }
 
 .portrait {
   justify-self: end;
@@ -185,6 +184,7 @@ main:focus, section[tabindex]:focus { outline: none; }
 .portrait-stage {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   aspect-ratio: 10 / 11;
   min-height: 0;
   background:
@@ -234,7 +234,7 @@ main:focus, section[tabindex]:focus { outline: none; }
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 22px;
-  transition: border-color .2s;
+  transition: border-color .2s, transform .35s var(--ease-out);
 }
 .project-card:hover, .project-card:focus-within { border-color: var(--color-accent); }
 .featured-project {
@@ -295,6 +295,7 @@ main:focus, section[tabindex]:focus { outline: none; }
   background: var(--color-surface);
   box-shadow: 0 12px 25px color-mix(in srgb, var(--color-ink) 23%, transparent);
 }
+.conference-photo-image { overflow: hidden; }
 .conference-photo img { display: block; width: 100%; height: auto; }
 .conference-photo figcaption {
   display: flex;
@@ -394,6 +395,73 @@ main:focus, section[tabindex]:focus { outline: none; }
 .field-error { margin-top: .32rem; color: var(--color-error); font-size: .85rem; }
 .footer { display: flex; justify-content: space-between; align-items: center; gap: .7rem 1rem; flex-wrap: wrap; padding-block: 15px 24px; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: .85rem; }
 
+@keyframes reveal-from-bottom {
+  from { opacity: var(--reveal-edge-opacity); translate: 0 var(--reveal-distance); }
+  to { opacity: 1; translate: none; }
+}
+
+@keyframes reveal-from-top {
+  from { opacity: 1; translate: none; }
+  to { opacity: var(--reveal-edge-opacity); translate: 0 calc(-1 * var(--reveal-distance)); }
+}
+
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) and (animation-range: cover 0% cover 120px) {
+    [data-reveal] {
+      --reveal-edge-opacity: .4;
+      --reveal-distance: 14px;
+      --reveal-range: min(18svh, 160px);
+      /* Use the full crossing range so short headings fade over the same distance as cards. */
+      animation: reveal-from-bottom auto ease-out backwards, reveal-from-top auto ease-in forwards;
+      animation-timeline: view(block var(--header-height) 0px);
+      animation-range: cover 0% cover var(--reveal-range), cover calc(100% - var(--reveal-range)) cover 100%;
+    }
+
+    [data-reveal]:is(:target, :focus-within) { animation: none; }
+
+    .site-header::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 -1px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-action));
+      pointer-events: none;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: scroll-progress auto linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+
+  .button:active:not(:disabled) { transform: translateY(1px); }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .button:hover:not(:active, :disabled) { transform: translateY(-2px); }
+  .button svg, .text-link svg:last-child { transition: transform .2s var(--ease-out); }
+  .button:hover svg, .text-link:hover svg:last-child { transform: translate(2px, -2px); }
+  .hero .button-primary:hover svg, .hero .hero-research-link:hover svg { transform: translateY(3px); }
+  .footer .text-link:hover svg { transform: translateY(-3px); }
+  .project-card:hover:not(:focus-within) { transform: translateY(-3px); }
+  .portrait-image, .conference-photo img { transition: transform .6s var(--ease-out); }
+  .portrait:hover .portrait-image, .conference-photo:hover img { transform: scale(1.03); }
+  .portrait-image { transform-origin: 50% 24%; }
+}
+
+@keyframes menu-enter {
+  from { opacity: .85; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .site-nav.is-open { animation: menu-enter .2s var(--ease-out); }
+}
+
 @media (max-width: 900px) {
   :root { --header-height: 64px; }
   .header-inner { grid-template-columns: 1fr auto; }
@@ -407,6 +475,7 @@ main:focus, section[tabindex]:focus { outline: none; }
 }
 
 @media (max-width: 767px) {
+  [data-reveal] { --reveal-distance: 8px; --reveal-range: min(16svh, 112px); }
   .hero { grid-template-columns: minmax(0, 1fr); padding-block: 35px 38px; gap: 20px; }
   .hero h1 { font-size: clamp(3.7rem, 12vw, 6rem); }
   .portrait { justify-self: start; }
@@ -434,5 +503,4 @@ main:focus, section[tabindex]:focus { outline: none; }
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
   }
-  .button:hover, .text-link:hover svg:last-child { transform: none; }
 }

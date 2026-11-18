@@ -1,44 +1,51 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FiArrowDown, FiArrowUpRight, FiGithub, FiLinkedin, FiMapPin } from 'react-icons/fi'
 import { featuredResearch, profile } from '../data/portfolioData'
 import portrait from '../assets/portrait-cutout.webp'
+import { useMediaQuery } from '../hooks/useMediaQuery'
+import { heroContainer, revealItem } from '../lib/motion'
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   return (
-    <section className="shell hero" id="hero" aria-labelledby="hero-title" tabIndex={-1}>
-      <motion.div
-        className="hero-copy"
-        initial={reduceMotion ? false : { y: 8 }}
-        animate={{ y: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.45, ease: 'easeOut' }}
-      >
-        <h1 id="hero-title">{profile.name}</h1>
-        <p className="hero-role">High Performance Computing student at the University of Information Technology.</p>
-        <p className="hero-description">
+    <motion.section
+      className="shell hero"
+      id="hero"
+      aria-labelledby="hero-title"
+      tabIndex={-1}
+      variants={heroContainer}
+      initial={reduceMotion ? false : 'hidden'}
+      animate={reduceMotion ? 'static' : 'visible'}
+    >
+      <div className="hero-copy" data-reveal>
+        <motion.h1 id="hero-title" variants={revealItem}>{profile.name}</motion.h1>
+        <motion.p className="hero-role" variants={revealItem}>
+          High Performance Computing student at the University of Information Technology.
+        </motion.p>
+        <motion.p className="hero-description" variants={revealItem}>
           I build web and mobile apps and test how infrastructure behaves under load.
-        </p>
-        <div className="hero-actions">
+        </motion.p>
+        <motion.div className="hero-actions" variants={revealItem}>
           <a className="button button-primary" href="#projects">View my work <FiArrowDown aria-hidden="true" /></a>
           <a className="button button-secondary" href="#contact">Contact me <FiArrowUpRight aria-hidden="true" /></a>
-        </div>
-        <div className="hero-socials">
+        </motion.div>
+        <motion.div className="hero-socials" variants={revealItem}>
           <a className="text-link" href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" /> GitHub</a>
           <a className="text-link" href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" /> LinkedIn</a>
           <a className="text-link hero-research-link" href={`#${featuredResearch.slug}`}>
             ICAIT 2026 research <FiArrowDown aria-hidden="true" />
           </a>
-        </div>
-      </motion.div>
-      <figure className="portrait">
+        </motion.div>
+      </div>
+      <motion.figure className="portrait" variants={revealItem} data-reveal>
         <div className="portrait-stage">
           <img className="portrait-image" src={portrait} alt={`Portrait of ${profile.name}`} width="727" height="960" fetchPriority="high" />
         </div>
         <figcaption className="portrait-caption">
           <FiMapPin aria-hidden="true" /> {profile.location}
         </figcaption>
-      </figure>
-    </section>
+      </motion.figure>
+    </motion.section>
   )
 }

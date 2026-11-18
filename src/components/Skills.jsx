@@ -7,7 +7,7 @@ export default function Skills() {
       <SectionTitle id="skills-title" title="Skills & tools" />
       <div className="skill-grid">
         {toolSkills.map((group) => (
-          <div key={group.category}>
+          <div key={group.category} data-reveal>
             <h3>{group.category}</h3>
             <ul className="tags">
               {group.items.map((item) => <li key={item}>{item}</li>)}

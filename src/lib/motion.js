@@ -24,19 +24,19 @@ export const staggerContainer = {
 }
 
 export const revealItem = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0.88, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: duration.slow, ease: easing.enter },
   },
+  static: { opacity: 1, y: 0, transition: { duration: 0 } },
 }
 
 export const heroContainer = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: duration.instant,
       staggerChildren: 0.08,
     },
   },

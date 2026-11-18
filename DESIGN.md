@@ -364,7 +364,7 @@ export const easing = {
 
 ### 7.3 Reusable animation patterns
 
-- Section reveal: opacity plus 20–32 px vertical movement
+- Section reveal: gradual opacity changes with a small vertical shift at each viewport edge
 - Staggered children: 60–100 ms separation
 - Button hover: 2 px lift and subtle glow
 - Link hover: animated underline or arrow shift
@@ -372,6 +372,10 @@ export const easing = {
 - Navigation: smooth background and border transition
 - Page load: hero elements reveal in a controlled sequence
 - Scroll progress: thin non-distracting indicator
+
+The hero, section headings, and selected content blocks fade in as they enter the viewport and fade out as they leave. CSS view timelines spread the fades over a viewport-relative distance so they follow the scroll position in either direction. Mobile uses a shorter range and less vertical travel. Focused content and direct link targets stay fully visible. Browsers without view timeline support display the content in its resting state.
+
+The hero uses the shared Framer Motion variants for its staggered entrance. The progress line below the sticky header follows the page’s scroll position when CSS scroll timelines are available.
 
 ### 7.4 Reduced motion
 

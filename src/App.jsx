@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { FiArrowUp } from 'react-icons/fi'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -15,6 +15,18 @@ const sectionIds = navSections.map(({ id }) => id)
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark')
   const activeSection = useActiveSection(sectionIds)
+
+  useLayoutEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id || window.scrollY !== 0) return
+
+    // let the browser restore the previous position on history navigation
+    const navigation = performance.getEntriesByType('navigation')[0]
+    if (navigation?.type === 'back_forward') return
+
+    // the section may have mounted after the browser first looked for the fragment
+    document.getElementById(id)?.scrollIntoView({ behavior: 'instant' })
+  }, [])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme

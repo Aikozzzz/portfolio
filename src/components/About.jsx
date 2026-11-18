@@ -7,7 +7,7 @@ export default function About() {
     <section className="shell section about-section" id="about" aria-labelledby="about-title" tabIndex={-1}>
       <SectionTitle id="about-title" title="About me" />
       <div className="about-grid">
-        <div className="about-copy">
+        <div className="about-copy" data-reveal>
           <p className="about-lead">I make time to learn every day.</p>
           <p>
             I’m a High Performance Computing student at the University of Information Technology in Yangon.
@@ -16,7 +16,7 @@ export default function About() {
           </p>
           <p>I enjoy working in teams, sharing what I learn, and talking through problems together.</p>
         </div>
-        <dl className="about-details">
+        <dl className="about-details" data-reveal>
           <div>
             <dt><FiBookOpen aria-hidden="true" /> Education</dt>
             {education.map(({ title, organization }) => (
